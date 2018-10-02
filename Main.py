@@ -39,12 +39,12 @@ while capture.isOpened():
 
     hull = cv2.convexHull(cnt)
 
-    drawing = numpy.zeros(frame.shape, numpy.uint8)
+    drawing = numpy.zeros(frame.shape, numpy.uint8) #blank image used to display only detected contours initialized based off original image size
     print(len(contours))
-    cv2.drawContours(drawing, [cnt], 0, (0, 255, 0), 2)
+    cv2.drawContours(drawing, [cnt], 0, (255, 0, 0), 2)
     cv2.drawContours(drawing, [hull], 0, (0, 0, 255), 2)
 
-    cv2.drawContours(frame, [cnt], 0, (0, 255, 0), 2) #draws max contour on original image
+    cv2.drawContours(frame, [cnt], 0, (255,0, 0), 2) #draws max contour on original image
     cv2.drawContours(frame, [hull], 0, (0, 0, 255), 2)
 
     cv2.imshow('contour only', drawing)
