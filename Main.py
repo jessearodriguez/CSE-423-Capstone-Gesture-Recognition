@@ -25,10 +25,11 @@ while capture.isOpened():
 
     cv2.imshow('input', thresh)
 
-    _, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) #finds contours and omits the other two vars
+    _, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) #finds contours
 
-    marea = 0
-    ci=0
+    marea = 0 # max area
+    ci=0 #countour index
+
     for i in range(len(contours)): #iterates through the total number of different objects found
         cnt = contours[i]
         area = cv2.contourArea(cnt)
@@ -39,15 +40,18 @@ while capture.isOpened():
 
     hull = cv2.convexHull(cnt)
 
-    drawing = numpy.zeros(frame.shape, numpy.uint8) #blank image used to display only detected contours initialized based off original image size
+    detected = numpy.zeros(frame.shape, numpy.uint8) #blank image used to display only detected contours initialized based off original image size
     print(len(contours))
-    cv2.drawContours(drawing, [cnt], 0, (255, 0, 0), 2)
-    cv2.drawContours(drawing, [hull], 0, (0, 0, 255), 2)
+
+    cv2.drawContours(detected, [cnt], 0, (255, 0, 0), 2)
+    cv2.drawContours(detected, [hull], 0, (0, 0, 255), 2)
 
     cv2.drawContours(frame, [cnt], 0, (255,0, 0), 2) #draws max contour on original image
     cv2.drawContours(frame, [hull], 0, (0, 0, 255), 2)
 
-    cv2.imshow('contour only', drawing)
+    cv2.imshow('contour only', detected)
     cv2.imshow('image', frame)
 
     #still need to add in how to count the corners needed for gesture recognition
+
+    #look into subimage recognition or convex defects + extremities detection for regocnition
