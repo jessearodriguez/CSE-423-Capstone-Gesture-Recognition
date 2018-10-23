@@ -24,3 +24,12 @@ class Lights:
         else:
             lights = 1
 
+
+    #Getters and setters
+    def getLight(self):
+        return light
+
+    def setLights(self, x):
+        light = x
+
+

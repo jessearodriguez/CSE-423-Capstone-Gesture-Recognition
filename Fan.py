@@ -24,3 +24,9 @@ class Fan:
         else:
             fan = 1
 
+    # Getters and setters
+    def getFanStatus(self):
+        return fan
+
+    def setFan(self, x):
+        fan = x
