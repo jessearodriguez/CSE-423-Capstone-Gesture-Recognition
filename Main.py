@@ -3,7 +3,7 @@ import numpy
 import math
 capture = cv2.VideoCapture(2) #set to 0 if you only have 1 camera connected.
 threshold = 0;
-currentdefects =0;
+pastdefects =0;
 while capture.isOpened():
 
     #parameters tested using a kinect camera, will probably need to modify for a better one
@@ -79,14 +79,19 @@ while capture.isOpened():
 
     cv2.imshow('image', frame)
 
-    if currentdefects == numofdefects:
-        currentdefects = numofdefects
-        threshold = threshold + 1;
+
+
+
+    if pastdefects == numofdefects:
+        threshold = threshold +1
+    else:
+        threshold = 0
 
     if threshold >10: #threshold needed to be met before gesture is associated
         print(numofdefects) #using the resultant number to assosciate with gestures to execute functions using a gigantic switch statement
         threshold = 0
 
+    pastdefects = numofdefects
 
 
 
