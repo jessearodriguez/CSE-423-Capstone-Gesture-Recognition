@@ -65,7 +65,7 @@ while capture.isOpened():
 
 
 
-            if d >200:
+            if d >200: #if distance from hull is greater than 200
                 cv2.line(roi,start,end,[0,255,0],2) #draws a line between the start and end of all contour defects
                 cv2.circle(roi,far,5,[0,0,255],-1)
                 numofdefects =numofdefects+1

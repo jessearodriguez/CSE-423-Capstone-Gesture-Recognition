@@ -12,5 +12,11 @@ time.sleep(2)
 Sound.volume_min()
 time.sleep(2)
 Sound.volume_set(40)
+time.sleep(2)
+Sound.volume_set(60)
+time.sleep(2)
+Sound.volume_set(80)
+time.sleep(2)
+Sound.volume_set(2)
 
 
