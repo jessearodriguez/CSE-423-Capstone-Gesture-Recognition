@@ -5,10 +5,13 @@ import win32api
 NextTrack = 0xB0            #25
 PrevTrack = 0xB1            #16
 PlayPauseMedia = 0xB3       #34
+VolUp = 0xAF                #48
+VolDown = 0xAE              #49
+MuteSound = 0xAD            #32
 
 #For getting the Hardware Code
-#hwcode = win32api.MapVirtualKey(StopMedia,0)
-#print(f'Hardware Code: {hwcode}')
+hwcode = win32api.MapVirtualKey(VolDown,0)
+print(f'Hardware Code: {hwcode}')
 
 
 #Just simple interface
@@ -19,8 +22,13 @@ def controlMedia(a):
         win32api.keybd_event(NextTrack,25)
     if a == 'c':
         win32api.keybd_event(PrevTrack,16)
-
+    if a == 'd':
+        win32api.keybd_event(VolUp,48)
+    if a == 'e':
+        win32api.keybd_event(VolDown, 49)
+    if a == 'f':
+        win32api.keybd_event(MuteSound,32)
 
 while True:
-    b = input("a:Play/Pause Media\nb:Next Track\nc:Prev Track\n\n")
+    b = input("a:Play/Pause Media\nb:Next Track\nc:Prev Track\nd:VolUp\ne:VolDown\nf:MuteSound\n")
     controlMedia(b)
