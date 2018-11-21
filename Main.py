@@ -1,12 +1,14 @@
 import cv2
-import numpy
+import numpy as np
 import math
 import funccaller
+import time
 capture = cv2.VideoCapture(2) #set to 0 if you only have 1 camera connected.
 threshold = 0;
 pastdefects =0;
 caller = funccaller.caller
 
+ltime = time.time() #last time initialization for stopping continuous function spam
 while capture.isOpened():
 
     #parameters tested using a kinect camera, will probably need to modify for a better one
@@ -17,11 +19,14 @@ while capture.isOpened():
     #x,y, y starts at 0 from top
     cv2.rectangle(frame,(300,100),(600,300),(250,0,0))
     roi = frame[100:300,300:600] #point (100,300) to point (300,600)
+
+
     blur = cv2.blur(roi, (5, 5)) #1st nosie reduction
 
     bw = cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY) #convert to black and white
-
-    blur2 = cv2.GaussianBlur(bw, (5,5), 0) #second noise reduction
+    bw = cv2.dilate(bw, (3,3), iterations = 4)
+    blur2 = cv2.GaussianBlur(bw, (5, 5), 0) #second noise reduction
+    blur2 = cv2.GaussianBlur(bw, (5, 5), 0)  # second noise reduction
 
     ret,thresh = cv2.threshold(blur2,140,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
 
@@ -43,7 +48,7 @@ while capture.isOpened():
     hull = cv2.convexHull(cnt)
 
 
-    detected = numpy.zeros(frame.shape, numpy.uint8) #blank image used to display only detected contours initialized based off original image size
+    detected = np.zeros(frame.shape, np.uint8) #blank image used to display only detected contours initialized based off original image size
 
     #cv2.drawContours(detected, [cnt], 0, (255, 0, 0), 2)
 
@@ -68,10 +73,11 @@ while capture.isOpened():
 
 
 
-            if d >200: #if distance from hull is greater than 200
+            if d >1000: #if distance from hull is greater than 200
                 cv2.line(roi,start,end,[0,255,0],2) #draws a line between the start and end of all contour defects
                 cv2.circle(roi,far,5,[0,0,255],-1)
                 numofdefects =numofdefects+1
+
 
 
 
@@ -82,6 +88,7 @@ while capture.isOpened():
 
     cv2.imshow('image', frame)
 
+    cv2.imshow('roi',thresh)
 
 
 
@@ -93,7 +100,13 @@ while capture.isOpened():
     if threshold >10: #threshold needed to be met before gesture is associated
         print(numofdefects) #using the resultant number to assosciate with gestures to execute functions using a gigantic switch statement
         threshold = 0
-        caller.call(numofdefects)
+
+        if(time.time()-ltime > .5): #max of 2 actions being executed per second, prevents extreme rapid changes to volume, song skip, ect
+            caller.call(numofdefects)
+            ltime = time.time()
+
+
+
 
 
     pastdefects = numofdefects
