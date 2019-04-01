@@ -1,0 +1,1 @@
+additional download is required, https://drive.google.com/file/d/1JICbL_1BevMWTBNLowmjLNYCMND1Fx5n/view?usp=sharing must be placed in the ckpt folder before running predictor
