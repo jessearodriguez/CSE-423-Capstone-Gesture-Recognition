@@ -22,4 +22,6 @@ darkflow https://github.com/thtrieu/darkflow
 cython
 opencv
 tensorflow/tensorflow-gpu
+pywin32
+
 
