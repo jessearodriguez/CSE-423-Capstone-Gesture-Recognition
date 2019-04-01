@@ -3,6 +3,8 @@ import numpy as np
 import math
 import funccaller
 import time
+
+
 capture = cv2.VideoCapture(2) #set to 0 if you only have 1 camera connected.
 threshold = 0;
 pastdefects =0;
