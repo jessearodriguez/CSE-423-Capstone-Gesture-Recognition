@@ -25,6 +25,11 @@ while True:
     if ret:
         results = tfnet.return_predict(frame)
         print(results)
+        mode = caller.mode
+        text2 = "mode: " + str(mode)
+        print(text2)
+        cv2.putText(frame, text2, (0, 25), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 0), 2, cv2.LINE_AA)
+
         for color, result in zip(colors, results):
             tl = (result['topleft']['x'], result['topleft']['y'])
             br = (result['bottomright']['x'], result['bottomright']['y'])
@@ -36,8 +41,11 @@ while True:
                 frame, text, tl, cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 0), 2)
 
 
-            if (time.time() - ltime > .5):  # max of 2 actions being executed per second, prevents extreme rapid changes to volume, song skip, ect
-                caller.call(label)
+            if (time.time() - ltime > .5) and label != "":  # max of 2 actions being executed per second, prevents extreme rapid changes to volume, song skip, ect
+                print(label)
+                caller.call(caller,label)
+
+
                 ltime = time.time()
 
 

@@ -24,14 +24,36 @@ MuteSound = 0xAD            #32
 
 class caller:
 
-    def call(label): #gibrish text is a placeholder
-       if label=="febjafndafeafds":
-           win32api.keybd_event(PlayPauseMedia, 34)
-       elif label =="feadfafesfed": #point up
-           win32api.keybd_event(NextTrack, 25)
-       elif label =="fadeaffdaf": #open hand
-           win32api.keybd_event(PrevTrack, 16)
-       elif label =="point_up": #3 fingers
-           win32api.keybd_event(VolUp, 48)
-       elif label =="rock_and_roll":#2 fingers
-           win32api.keybd_event(VolDown, 49)
+    #use toggle 'modes' to have 3 working gestures, 2 mapped to a command and 1 to switch to a next series of commands
+    mode = 0
+    def call(self, label): #gibrish text is a placeholder
+        if self.mode == 0:
+           if label=="ok_gesture":
+               self.mode += 1
+
+           elif label == "point_up":
+               win32api.keybd_event(VolUp, 48)
+
+           elif label == "rock_and_roll":
+               win32api.keybd_event(VolDown, 49)
+
+        elif self.mode == 1:
+            if label == "ok_gesture":
+                self.mode += 1
+
+            elif label == "point_up":
+                win32api.keybd_event(NextTrack, 25)
+
+            elif label == "rock_and_roll":
+                win32api.keybd_event(PrevTrack, 16)
+
+        elif self.mode == 2:
+            if label == "ok_gesture":
+                self.mode = 0
+            elif label == "point_up":
+                win32api.keybd_event(PlayPauseMedia, 34)
+
+            elif label == "rock_and_roll":
+                print("")
+
+
