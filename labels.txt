@@ -1,0 +1,11 @@
+3_fingers 
+camera_gesture 
+closed_hand 
+hand_gun 
+ok_gesture 
+peace_gesture 
+point_up 
+rock_and_roll 
+stop_gesture 
+thumbs_down 
+thumbs_up
