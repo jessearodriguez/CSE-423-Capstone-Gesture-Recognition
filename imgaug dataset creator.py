@@ -3,10 +3,9 @@ from imgaug import augmenters as iaa
 import numpy as np
 import imageio as imgio
 import os
-import glob
+
 import cv2
-import h5py
-import random as rand
+
 
 from sklearn.utils import shuffle as skshuffle
 
@@ -28,7 +27,7 @@ bg_images=[]
 boundingboxes_arr = []
 
 
-
+#possible improvement to make would be to incorporate relative paths, but since this code is only intended to be run once, i left it as is during its creation.
 
 
 for subdir in os.listdir('C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\dtd\\images'): #loads backgrounds for future use
@@ -104,7 +103,7 @@ for filename in os.listdir('C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-
                 # Apply affine transformations to each image.
                 # Scale/zoom them, translate/move them, rotate them and shear them.
                 iaa.Affine(
-                    scale={"x": (0.9, 1.1), "y": (0.8, 1.2)},
+                    scale={"x": (0.5, 1.1), "y": (0.5, 1.2)},
                     translate_percent={"x": (-0.1, 0.1), "y": (-0.1, 0.1)},
                     rotate=(-35, 35),
                     shear=(-8, 8)
@@ -147,6 +146,7 @@ for filename in os.listdir('C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-
             lablearray.append(lable)
 
             boundingboxes_arr.append(boundingaug.bounding_boxes[0])
+
 
 
         else:
@@ -218,22 +218,32 @@ for index in range(len(lables)): #generating all the required files
     br = [(boundingregion.x2, boundingregion.y2)]
 
 
-    probability = rand.uniform(0,1)
+    #probability = rand.uniform(0,1)
 
-    print(probability)
-    if probability <.75: #75% training data 25% testing data
-        imgio.imsave('C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\images\\' + imagename, images[index])
+    imgio.imsave('C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\images\\' + imagename,
+                 images[index])
 
-        write_xml(folder='trainingimages',
-                  img='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\images\\' + imagename,
-                  tl=tl, br=br, objects = [lablename], filename = imagename,
-                  savedir='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\annotations\\')
-    else:
-        imgio.imsave('C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\testing\\images\\' + imagename, images[index])
-        write_xml(folder='testingimages',
-                  img='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\testing\\images\\' + imagename,
-                  tl=tl, br=br, objects = [lablename], filename = imagename,
-                  savedir='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\testing\\annotations\\')
+    write_xml(folder='trainingimages',
+              img='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\images\\' + imagename,
+              tl=tl, br=br, objects=[lablename], filename=imagename,
+              savedir='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\annotations\\')
+
+
+#removed data split since darkflow cannot utilize this like darknet can
+
+#    if probability <.75: #75% training data 25% testing data
+ #       imgio.imsave('C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\images\\' + imagename, images[index])
+
+  #      write_xml(folder='trainingimages',
+   #               img='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\images\\' + imagename,
+     #             tl=tl, br=br, objects = [lablename], filename = imagename,
+    #              savedir='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\training\\annotations\\')
+    #else:
+     #   imgio.imsave('C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\testing\\images\\' + imagename, images[index])
+      #  write_xml(folder='testingimages',
+       #           img='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\testing\\images\\' + imagename,
+        #          tl=tl, br=br, objects = [lablename], filename = imagename,
+         #         savedir='C:\\Users\\Jesse\\Desktop\\CSE-423-Capstone-Gesture-Recognition\\testing\\annotations\\')
 
 
 #for x in range(20):
