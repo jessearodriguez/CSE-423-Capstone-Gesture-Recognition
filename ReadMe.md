@@ -17,7 +17,7 @@ After installing the modules, extract and drop the describable textures dataset 
 
 The dataset can also be pre-downloaded here [[Link]][2]
 
-#### Training/running evn setup
+#### Training/running env setup
 In a new conda environemnt, the following moduels and pre-requisites are needed to successfuly train and run the program.
 - c++ build tools [[Link]][4]
 - darkflow [[Link]][3]
