@@ -20,7 +20,7 @@
 
 #will need google-assistant-library
 #most directions needed are found on the guide website
-#https://developers.google.com/assistant/sdk/guides/library/python/embed/install-sample
+#python -m pip install --upgrade google-assistant-library==1.0.1
 
 #will need chardet
 #pip install chardet
