@@ -1,8 +1,9 @@
 import win32.win32api as win32api
-from textinput import volup_home
-from textinput import voldown_home
-from textinput import plug_on
-from textinput import plug_off
+#from textinput import volup_home
+#from textinput import voldown_home
+#from textinput import plug_on
+#from textinput import plug_off
+import pywemo
 
 NextTrack = 0xB0            #25
 PrevTrack = 0xB1            #16
@@ -36,6 +37,9 @@ MuteSound = 0xAD            #32
 
 
 class caller:
+    mode = 0
+    devices = pywemo.discover_devices()
+    numberOfDevices = len(devices)
 
     #use toggle 'modes' to have 3 working gestures, 2 mapped to a command and 1 to switch to a next series of commands
     def call(self, label): #gibrish text is a placeholder
@@ -61,21 +65,30 @@ class caller:
 
         elif self.mode == 2:
             if label == "ok_gesture":
-                self.mode = 0
+                self.mode += 1
             elif label == "point_up":
                 win32api.keybd_event(PlayPauseMedia, 34)
 
             elif label == "rock_and_roll":
                 print("")
 
-        #elif self.mode == 3:
-        #    if label == "ok_gesture":
-        #        self.mode =
-        #    elif label == "point_up":
-        #        volup_home()
-        #
-        #    elif label == "rock_and_roll":
-        #        volup_home()
+        elif self.mode == 3:
+            if label == "ok_gesture":
+                self.mode += 1
+            elif label == "point_up":
+                if self.numberOfDevices > 0:
+                    self.devices[0].toggle()
+            elif label == "rock_and_roll":
+                if self.numberOfDevices > 1:
+                    self.devices[1].toggle()
 
-
+        elif self.mode == 4:
+            if label == "ok_gesture":
+                self.mode = 0
+            elif label == "point_up":
+                if self.numberOfDevices > 2:
+                    self.devices[2].toggle()
+            elif label == "rock_and_roll":
+                if self.numberOfDevices > 3:
+                    self.devices[3].toggle()
 

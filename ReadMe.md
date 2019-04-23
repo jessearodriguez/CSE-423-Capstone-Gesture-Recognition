@@ -36,4 +36,4 @@ At this point, the mainv2.py should be able to be run.
 [2]: https://drive.google.com/open?id=1X55D_BYsIAp7QoyG6ev2i2eJKxtEL7gx
 [3]: https://github.com/thtrieu/darkflow
 [4]: https://download.microsoft.com/download/5/f/7/5f7acaeb-8363-451f-9425-68a90f98b238/visualcppbuildtools_full.exe?fixForIE=.exe
-[5]: http://https://drive.google.com/file/d/1JICbL_1BevMWTBNLowmjLNYCMND1Fx5n/view?usp=sharing
+[5]: http://drive.google.com/file/d/1JICbL_1BevMWTBNLowmjLNYCMND1Fx5n/view?usp=sharing
