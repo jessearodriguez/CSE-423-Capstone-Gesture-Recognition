@@ -1,5 +1,8 @@
-from sound import Sound
 import win32.win32api as win32api
+from textinput import volup_home
+from textinput import voldown_home
+from textinput import plug_on
+from textinput import plug_off
 
 NextTrack = 0xB0            #25
 PrevTrack = 0xB1            #16
@@ -22,10 +25,19 @@ MuteSound = 0xAD            #32
 # thumbs up works at certain angles
 # thumbs down not working at all
 
+
+# Google Home
+# Functions have a tendancy to forcefully exit when called
+# I don't know why but this makes it non ideal as it will close the program
+# Wasn't able to pass input to the main function so opted on creating a function for each
+# Only was able to get the volume control working, there is device control the specific device needs to be mentioned
+# Volume control = volup_home and voldown_home
+# Plug control controls device named "plug" can be renamed to control any device plug_on plug_off
+
+
 class caller:
 
     #use toggle 'modes' to have 3 working gestures, 2 mapped to a command and 1 to switch to a next series of commands
-    mode = 0
     def call(self, label): #gibrish text is a placeholder
         if self.mode == 0:
            if label=="ok_gesture":
@@ -55,5 +67,15 @@ class caller:
 
             elif label == "rock_and_roll":
                 print("")
+
+        #elif self.mode == 3:
+        #    if label == "ok_gesture":
+        #        self.mode =
+        #    elif label == "point_up":
+        #        volup_home()
+        #
+        #    elif label == "rock_and_roll":
+        #        volup_home()
+
 
 
