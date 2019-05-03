@@ -31,7 +31,21 @@ Training from scratch information can be found in the darkflow link listed above
 
 At this point, the mainv2.py should be able to be run.
 
-
+------------
+#### Current Functionality:
+- Ability to detect 11 hand gestures
+- Can execute media commands such as pause/play/stop and track prev/next alongside volume up/down
+-  Support for the ability to toggle up to 4 different wemo smart plug
+#### Future potential functionality
+- Google Home or Amazon Alexa integration
+- More than 4 smart plugs
+- Ability to define and save user created functions
+- Increase amount of gestures
+- More than 1 camera view for detecting gestures
+#### Potential improvement
+- Training data can be improved to handle low lighting conditions/shadows better
+- Database of wemo smart plugs based off of MAC to remember which plug is which
+- Increase fps by only predicting one frame of input every x seconds
 [1]: https://www.robots.ox.ac.uk/~vgg/data/dtd/
 [2]: https://drive.google.com/open?id=1X55D_BYsIAp7QoyG6ev2i2eJKxtEL7gx
 [3]: https://github.com/thtrieu/darkflow
